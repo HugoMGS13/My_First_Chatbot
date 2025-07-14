@@ -15,10 +15,10 @@ chat = ChatGroq(model="deepseek-r1-distill-llama-70b") #Criando meu chat com o m
 video_id = "4Yc06ndBsO8" 
 
 try:
-    dados_video_ufpa = YouTubeTranscriptApi.get_transcript(video_id, languages=['pt','en'])
-    print("Transcrição disponível:", dados_video_ufpa)
+  dados_video_ufpa = YouTubeTranscriptApi.get_transcript(video_id, languages=['pt','en'])
+  print("Transcrição disponível:", dados_video_ufpa)
 except Exception as e:
-    print("Erro ao obter transcrição:", e)
+  print("Erro ao obter transcrição:", e)
 
 loader = WebBaseLoader("https://lacis.ufpa.br")
 #Criando uma variável que vai armazenas os scraps feitos pela função WebBaseLoader
@@ -34,10 +34,14 @@ for doc in brutedata_lacis:
 
 #Criando a lógica do chatbot
 def resposta_bot(mensagens):
-  mensagens_bot = [('system', 'Você é um assistente virtual universitário chamado GuinAI'),
-                   ('system', 'Você tem acesso aos seguintes dados sobre o Lacis: {dados_informados}'),
-                   ('system', 'Você tem acesso aos seguintes dados sobre a Universidade Federal do Pará, a universidade sede do lacis: {dados_informados2}'),] 
-                   #Criando uma mensagem de sistema para o chatbot lhe dando uma instrução
+
+  #Criando mensagens de sistema para o chatbot lhe dando instruções
+  mensagens_bot = [
+    ('system', 'Você é um assistente virtual universitário chamado GuinAI'),
+    ('system', 'Você tem acesso aos seguintes dados sobre o Lacis: {dados_informados}'),
+    ('system', 'Você tem acesso aos seguintes dados sobre a Universidade Federal do Pará, a universidade sede do lacis: {dados_informados2}'),
+  ] 
+  
   mensagens_bot += mensagens #Somando a lista menssagens com respostas_bot, para o bot ter acesso a todas as mensagens da interção user-chat
   #Para o chat saber as mensagens enviadas pelo usuário e por ele mesmo.
   template = ChatPromptTemplate.from_messages(mensagens_bot) #Criando o template para o chat receber a instrução
@@ -49,10 +53,10 @@ def resposta_bot(mensagens):
 #Primeiro o template vai ser preenchido, logo depois ele é mandado ao chat
 
 def remover_pensamento(resposta_cp):
-    #Função caso use um modelo reasoning
-    # Remove tudo entre <think> e </think> usando expressões regulares
-    response_without_think = re.sub(r'<think>.*?</think>', '', resposta_cp, flags=re.DOTALL)
-    return response_without_think.strip()
+  #Função caso use um modelo reasoning
+  # Remove tudo entre <think> e </think> usando expressões regulares
+  response_without_think = re.sub(r'<think>.*?</think>', '', resposta_cp, flags=re.DOTALL)
+  return response_without_think.strip()
 
 print("Bem-vindo ao GuinIA")
 
