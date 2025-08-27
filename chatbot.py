@@ -58,7 +58,7 @@ def remover_pensamento(resposta_cp):
   response_without_think = re.sub(r'<think>.*?</think>', '', resposta_cp, flags=re.DOTALL)
   return response_without_think.strip()
 
-print("Bem-vindo ao GuinAI")
+print("Bem-vindo ao GuinIA")
 
 mensagens = [] #Lista que vai armazenar todas as perguntas e respostas da interação
 
@@ -69,7 +69,7 @@ while True:
   mensagens.append(('user', prompt))
   resposta = resposta_bot(mensagens)
   mensagens.append(('assistant', resposta))
-  print(f'GuinAI: {resposta}')
+  print(f'GuinIA: {resposta}')
 
-print("Muito obrigado por usar o GuinAI, volte sempre!")
+print("Muito obrigado por usar o GuinIA, volte sempre!")
 
